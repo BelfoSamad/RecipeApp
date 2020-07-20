@@ -2,14 +2,19 @@ package com.belfoapps.recipeapp.views.activities;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.belfoapps.recipeapp.R;
+import com.belfoapps.recipeapp.views.fragments.HomeFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+    private static final int CONTENT_VIEW_ID = 10101010;
 
     /**
      * ************************************* Declarations ******************************************
@@ -25,6 +30,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
             //TODO: Restore Data
+        }
+
+        FrameLayout frame = new FrameLayout(this);
+        frame.setId(CONTENT_VIEW_ID);
+        setContentView(frame, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        if (savedInstanceState == null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(CONTENT_VIEW_ID, HomeFragment.newInstance()).commit();
         }
 
         //TODO: Setup Logic That happens once in the life of the activity

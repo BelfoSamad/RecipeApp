@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">RecipeApp</string>
+
+    <!-- Home Page -->
+    <string name="categories">Categories</string>
+    <string name="recent">Recent</string>
+    <string name="saved">Saved</string>
+    <string name="see_all">See All</string>
+
+
 </resources>
