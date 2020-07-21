@@ -42,47 +42,6 @@ public class MainActivity extends AppCompatActivity {
             ft.add(CONTENT_VIEW_ID, HomeFragment.newInstance()).commit();
         }
 
-        //TODO: Setup Logic That happens once in the life of the activity
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        //TODO: Init the Code that maintains the UI
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //TODO: Run Services that happens when the ui is visible
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        //TODO: Adjust operations when the ui is invisible (Sound, Camera...etc)
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        //TODO: Adjust Resources when the ui is invisible (Release animations, location updates...etc)
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        //TODO: Release Remaining Resources
-        if (isFinishing()) {
-            //TODO: User closed the Activity
-        } else {
-            //TODO: Configuration Change
-        }
     }
 
     /**

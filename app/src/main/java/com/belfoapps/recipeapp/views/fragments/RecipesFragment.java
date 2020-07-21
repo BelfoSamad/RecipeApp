@@ -37,14 +37,11 @@ public class RecipesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //TODO: Setup Logic That happens once in the life of the fragment
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-
-        //TODO: Init UI
 
         return inflater.inflate(R.layout.recipes_fragment, container, false);
     }
@@ -56,14 +53,6 @@ public class RecipesFragment extends Fragment {
         // TODO: Use the ViewModel
         mViewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
 
-        //TODO: Retrieve Views and restoring state
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        //TODO: Adjust operations when the ui is invisible (Sound, Camera...etc)
     }
 
     /**

@@ -47,8 +47,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //TODO: Setup Logic That happens once in the life of the fragment
     }
 
     @Override
@@ -57,7 +55,6 @@ public class HomeFragment extends Fragment {
 
         mBinding = HomeFragmentBinding.inflate(inflater, container, false);
 
-        //TODO: Init UI
         //Init Featured
         //TODO: Get Featured Recipes
         ArrayList<Recipe> recipes = new ArrayList<>();
@@ -101,14 +98,6 @@ public class HomeFragment extends Fragment {
         //TODO: Use the ViewModel
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
-        //TODO: Retrieve Views and restoring state
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        //TODO: Adjust operations when the ui is invisible (Sound, Camera...etc)
     }
 
     @Override
