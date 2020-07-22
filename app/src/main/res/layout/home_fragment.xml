@@ -50,6 +50,8 @@
                 android:layout_marginBottom="128dp"
                 android:background="@drawable/search_bar"
                 android:queryHint="Recipe Name"
+                android:queryBackground="@android:color/transparent"
+                android:submitBackground="@android:color/transparent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/chef"
                 app:layout_constraintStart_toStartOf="@id/logo"

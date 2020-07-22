@@ -1,5 +1,7 @@
 package com.belfoapps.recipeapp.views.fragments;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -88,6 +90,9 @@ public class HomeFragment extends Fragment {
         //TODO: Get Saved Recipes
         initSavedRecipesRecyclerView(recent_recipes);
 
+        //Init Search
+        initSearchView();
+
         return mBinding.getRoot();
     }
 
@@ -95,7 +100,6 @@ public class HomeFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //TODO: Use the ViewModel
         mViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
 
     }
@@ -117,6 +121,17 @@ public class HomeFragment extends Fragment {
     /**
      * ****************************************** Methods ******************************************
      */
+    private void initSearchView() {
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        mBinding.searchBar.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+        // Do not iconify the widget; expand it by default
+        mBinding.searchBar.setIconifiedByDefault(false);
+        // Enabel Submit Button for the user
+        mBinding.searchBar.setSubmitButtonEnabled(true);
+        // Enable the ability to refine the suggestions
+        mBinding.searchBar.setQueryRefinementEnabled(true);
+    }
+
     private void initFeatured(ArrayList<Recipe> recipes) {
         FeaturedAdapter adapter = new FeaturedAdapter(recipes, getContext());
         mBinding.featured.setAdapter(adapter);
@@ -149,7 +164,6 @@ public class HomeFragment extends Fragment {
         mBinding.recentRecyclerview.setAdapter(adapter);
         mBinding.recentRecyclerview.addItemDecoration(new RecipesItemDecoration());
     }
-
 
     /**
      * ************************************ Item Decorations ***************************************
