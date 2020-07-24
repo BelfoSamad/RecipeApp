@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.views.fragments.HomeFragment;
+import com.belfoapps.recipeapp.views.fragments.RecipesFragment;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";

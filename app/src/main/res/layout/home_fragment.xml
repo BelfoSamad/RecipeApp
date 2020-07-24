@@ -10,11 +10,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- Guidelines -->
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_headline_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_headline_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="24dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_content_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="8dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_content_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="8dp" />
+
+        <!-- Top Bar Background -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/top_bar"
+            android:background="@drawable/top_card"
             app:layout_constraintTop_toTopOf="parent">
 
             <!-- TODO: Make the Logo as an Image -->
@@ -46,121 +76,123 @@
                 android:id="@+id/search_bar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginBottom="128dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="32dp"
                 android:background="@drawable/search_bar"
-                android:queryHint="Recipe Name"
                 android:queryBackground="@android:color/transparent"
+                android:queryHint="Recipe Name"
                 android:submitBackground="@android:color/transparent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/chef"
-                app:layout_constraintStart_toStartOf="@id/logo"
+                app:layout_constraintBottom_toBottomOf="@id/top_bar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/logo" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <AdapterViewFlipper
             android:id="@+id/featured"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="164dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp"
             android:autoStart="true"
             android:flipInterval="3000"
-            app:layout_constraintBottom_toBottomOf="@id/top_bar"
+            app:layout_constraintEnd_toEndOf="@id/guideline_content_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_content_start"
             app:layout_constraintTop_toBottomOf="@id/top_bar" />
 
         <TextView
             android:id="@+id/categories_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/categories"
             android:textColor="@color/black"
             android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_headline_start"
             app:layout_constraintTop_toBottomOf="@id/featured" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categories_recyclerview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fadingEdgeLength="4dp"
             android:nestedScrollingEnabled="false"
             android:requiresFadingEdge="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_content_start"
             app:layout_constraintTop_toBottomOf="@id/categories_text" />
 
         <TextView
             android:id="@+id/recent_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/recent"
             android:textColor="@color/black"
             android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_headline_start"
             app:layout_constraintTop_toBottomOf="@id/categories_recyclerview" />
 
         <TextView
             android:id="@+id/recent_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/see_all"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/recent_text"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guideline_headline_end"
             app:layout_constraintTop_toTopOf="@id/recent_text" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recent_recyclerview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toStartOf="@id/guideline_content_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_content_start"
             app:layout_constraintTop_toBottomOf="@id/recent_text" />
 
         <TextView
             android:id="@+id/saved_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/saved"
             android:textColor="@color/black"
             android:textSize="28sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline_headline_start"
             app:layout_constraintTop_toBottomOf="@id/recent_recyclerview" />
 
         <TextView
             android:id="@+id/saved_all"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="24dp"
             android:fontFamily="@font/montserrat_bold"
             android:text="@string/see_all"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@id/saved_text"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline_headline_end"
             app:layout_constraintTop_toTopOf="@id/saved_text" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/saved_recyclerview"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="@id/guideline_content_end"
+            app:layout_constraintStart_toStartOf="@id/guideline_content_start"
             app:layout_constraintTop_toBottomOf="@id/saved_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
