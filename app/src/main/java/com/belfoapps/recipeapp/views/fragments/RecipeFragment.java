@@ -1,5 +1,6 @@
 package com.belfoapps.recipeapp.views.fragments;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.belfoapps.recipeapp.R;
+import com.belfoapps.recipeapp.databinding.RecipeFragmentBinding;
+import com.belfoapps.recipeapp.models.Recipe;
+import com.belfoapps.recipeapp.ui.adapters.IngredientsAdapter;
+import com.belfoapps.recipeapp.ui.adapters.StepsAdapter;
 import com.belfoapps.recipeapp.viewmodels.RecipeViewModel;
 
 public class RecipeFragment extends Fragment {
@@ -20,6 +27,8 @@ public class RecipeFragment extends Fragment {
      * ************************************* Declarations ******************************************
      */
     private RecipeViewModel mViewModel;
+    private RecipeFragmentBinding mBinding;
+
 
     /**
      * ************************************** Constructor ******************************************
@@ -34,7 +43,25 @@ public class RecipeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recipe_fragment, container, false);
+
+        mBinding = RecipeFragmentBinding.inflate(inflater, container, false);
+
+        //TODO: Get Recipe
+        //Bind Recipe
+        Recipe recipe = new Recipe("Recipe Title", "Category", R.drawable.recipe, 120, 2.5f, 6, null, null, null);
+        mBinding.setRecipe(recipe);
+
+        //init Ingredients RecyclerView
+        //TODO: get the ingredients from the recipe object retrieved
+        String[] ingredients = {"Ingredient 1", "Ingredient 2", "Ingredient 3"};
+        initIngredientsRecyclerView(ingredients);
+
+        //init Steps RecyclerView
+        //TODO: get the steps from the recipe object retrieved
+        String[] steps = {"Step 1", "Step 2", "Step 3"};
+        initStepsRecyclerView(steps);
+
+        return mBinding.getRoot();
     }
 
     @Override
@@ -59,4 +86,31 @@ public class RecipeFragment extends Fragment {
     /**
      * ****************************************** Methods ******************************************
      */
+    private void initStepsRecyclerView(String[] steps) {
+        StepsAdapter mAdapter = new StepsAdapter(steps, getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+
+        mBinding.stepsRecyclerview.setLayoutManager(manager);
+        mBinding.stepsRecyclerview.setAdapter(mAdapter);
+
+        mBinding.stepsIndicator.attachToRecyclerView(mBinding.stepsRecyclerview);
+    }
+
+    private void initIngredientsRecyclerView(String[] ingredients) {
+        IngredientsAdapter mAdapter = new IngredientsAdapter(ingredients, getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        mBinding.ingredientsRecyclerview.setLayoutManager(manager);
+        mBinding.ingredientsRecyclerview.setAdapter(mAdapter);
+        mBinding.ingredientsRecyclerview.addItemDecoration(new MyItemDecoration());
+    }
+
+    private static class MyItemDecoration extends RecyclerView.ItemDecoration {
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, int itemPosition, @NonNull RecyclerView parent) {
+            super.getItemOffsets(outRect, itemPosition, parent);
+
+            outRect.bottom = 8;
+        }
+    }
 }

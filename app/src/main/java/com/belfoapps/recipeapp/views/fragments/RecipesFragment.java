@@ -96,7 +96,7 @@ public class RecipesFragment extends Fragment {
     }
 
     private void initRecyclerView(ArrayList<Recipe> recipes) {
-        RecipesAdapter adapter = new RecipesAdapter(recipes, getContext());
+        RecipesAdapter adapter = new RecipesAdapter(recipes, getContext(), "LIST");
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         mBinding.recipesRecyclerview.setLayoutManager(manager);

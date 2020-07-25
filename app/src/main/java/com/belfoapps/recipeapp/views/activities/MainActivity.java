@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.views.fragments.HomeFragment;
+import com.belfoapps.recipeapp.views.fragments.RecipeFragment;
 import com.belfoapps.recipeapp.views.fragments.RecipesFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(CONTENT_VIEW_ID, HomeFragment.newInstance()).commit();
+            ft.add(CONTENT_VIEW_ID, RecipeFragment.newInstance()).commit();
         }
 
     }

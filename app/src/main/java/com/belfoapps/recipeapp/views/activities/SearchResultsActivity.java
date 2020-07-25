@@ -103,7 +103,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     }
 
     private void initSearchResults(ArrayList<Recipe> recipes) {
-        RecipesAdapter adapter = new RecipesAdapter(recipes, this);
+        RecipesAdapter adapter = new RecipesAdapter(recipes, this, "LIST");
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         mBinding.resultsRecyclerview.setLayoutManager(manager);

@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initSavedRecipesRecyclerView(ArrayList<Recipe> recipes) {
-        RecipesAdapter adapter = new RecipesAdapter(recipes, getContext());
+        RecipesAdapter adapter = new RecipesAdapter(recipes, getContext(), "LIST");
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         mBinding.savedRecyclerview.setLayoutManager(manager);
@@ -157,7 +157,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void initRecentRecipesRecyclerView(ArrayList<Recipe> recipes) {
-        RecipesAdapter adapter = new RecipesAdapter(recipes, getContext());
+        RecipesAdapter adapter = new RecipesAdapter(recipes, getContext(), "LIST");
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
         mBinding.recentRecyclerview.setLayoutManager(manager);
