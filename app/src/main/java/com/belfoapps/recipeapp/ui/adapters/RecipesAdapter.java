@@ -71,7 +71,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.recipe_title);
+            title = itemView.findViewById(R.id.shopping_list);
             category = itemView.findViewById(R.id.recipe_category);
             image = itemView.findViewById(R.id.recipe_image);
             time = itemView.findViewById(R.id.recipe_time);

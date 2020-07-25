@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.viewmodels.ShoppingListViewModel;
 
-public class ShoppingListFragment extends Fragment {
-    private static final String TAG = "ShoppingListFragment";
+public class ShoppingListIngredientsFragment extends Fragment {
+    private static final String TAG = "ShoppingIngredientsFrag";
 
     /**
      * ************************************* Declarations ******************************************
@@ -24,23 +24,28 @@ public class ShoppingListFragment extends Fragment {
     /**
      * ************************************** Constructor ******************************************
      */
-    public static ShoppingListFragment newInstance() {
-        return new ShoppingListFragment();
+    public static ShoppingListIngredientsFragment newInstance(String param1, String param2) {
+        ShoppingListIngredientsFragment fragment = new ShoppingListIngredientsFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     /**
      * *********************************** Life Cycle Methods **************************************
      */
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+        }
     }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.shopping_list_fragment, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.shopping_list_ingredients_fragment, container, false);
     }
 
     @Override
@@ -62,5 +67,4 @@ public class ShoppingListFragment extends Fragment {
     /**
      * ****************************************** Methods ******************************************
      */
-
 }
