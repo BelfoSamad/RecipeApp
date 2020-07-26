@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.belfoapps.recipeapp.views.fragments.HomeFragment"
+        android:label="home_fragment"
+        tools:layout="@layout/home_fragment">
+        <action
+            android:id="@+id/go_to_recipes"
+            app:destination="@id/recipesFragment" />
+        <action
+            android:id="@+id/go_to_shopping_list"
+            app:destination="@id/navigation3" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/recipesFragment"
+        android:name="com.belfoapps.recipeapp.views.fragments.RecipesFragment"
+        android:label="recipes_fragment"
+        tools:layout="@layout/recipes_fragment" />
+
+    <fragment
+        android:id="@+id/recipeFragment"
+        android:name="com.belfoapps.recipeapp.views.fragments.RecipeFragment"
+        android:label="RecipeFragment" />
+
+    <navigation
+        android:id="@+id/navigation3"
+        app:startDestination="@id/shoppingListRecipesFragment">
+        <fragment
+            android:id="@+id/shoppingListIngredientsFragment"
+            android:name="com.belfoapps.recipeapp.views.fragments.ShoppingListIngredientsFragment"
+            android:label="shopping_list_ingredients_fragment"
+            tools:layout="@layout/shopping_list_ingredients_fragment" />
+        <fragment
+            android:id="@+id/shoppingListRecipesFragment"
+            android:name="com.belfoapps.recipeapp.views.fragments.ShoppingListRecipesFragment"
+            android:label="shopping_list_recipes_fragment"
+            tools:layout="@layout/shopping_list_recipes_fragment">
+            <action
+                android:id="@+id/go_to_ingredients"
+                app:destination="@id/shoppingListIngredientsFragment" />
+        </fragment>
+    </navigation>
+
+    <action
+        android:id="@+id/go_to_recipe"
+        app:destination="@id/recipeFragment" />
+</navigation>

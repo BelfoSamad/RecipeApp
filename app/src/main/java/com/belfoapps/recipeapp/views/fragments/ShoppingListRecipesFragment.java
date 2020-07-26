@@ -1,5 +1,6 @@
 package com.belfoapps.recipeapp.views.fragments;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,6 +19,7 @@ import com.belfoapps.recipeapp.databinding.ShoppingListRecipesFragmentBinding;
 import com.belfoapps.recipeapp.models.Recipe;
 import com.belfoapps.recipeapp.ui.adapters.RecipesAdapter;
 import com.belfoapps.recipeapp.viewmodels.ShoppingListViewModel;
+import com.belfoapps.recipeapp.views.MainListener;
 
 import java.util.ArrayList;
 
@@ -30,6 +32,7 @@ public class ShoppingListRecipesFragment extends Fragment {
     private ShoppingListViewModel mViewModel;
     private ShoppingListRecipesFragmentBinding mBinding;
     private RecipesAdapter mAdapter;
+    private MainListener listener;
 
     /**
      * ************************************** Constructor ******************************************
@@ -45,6 +48,16 @@ public class ShoppingListRecipesFragment extends Fragment {
      * *********************************** Life Cycle Methods **************************************
      */
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listener = (MainListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement SLRecipesFragmentEvents");
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -54,6 +67,14 @@ public class ShoppingListRecipesFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         mBinding = ShoppingListRecipesFragmentBinding.inflate(inflater, container, false);
+
+        //go back
+        mBinding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         //TODO: Get Shopping List Recipes
         ArrayList<Recipe> recipes = new ArrayList<>();

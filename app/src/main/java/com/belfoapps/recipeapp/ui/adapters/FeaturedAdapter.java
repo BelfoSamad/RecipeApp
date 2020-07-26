@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.models.Recipe;
+import com.belfoapps.recipeapp.views.MainListener;
 
 import java.util.ArrayList;
 
@@ -61,6 +62,13 @@ public class FeaturedAdapter extends BaseAdapter {
         //TODO: Set Images By Glide/Picasso
         ((ImageView) convertView.findViewById(R.id.featured_image)).setImageResource(currentRecipe.getImage());
         ((TextView) convertView.findViewById(R.id.featured_title)).setText(currentRecipe.getTitle());
+        convertView.findViewById(R.id.featured_container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainListener listener = (MainListener) context;
+                listener.goToRecipe("id");
+            }
+        });
 
         return convertView;
     }

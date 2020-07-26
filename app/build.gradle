@@ -55,6 +55,10 @@ dependencies {
     //CardView
     implementation "androidx.cardview:cardview:1.0.0"
 
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment:2.3.0"
+    implementation "androidx.navigation:navigation-ui:2.3.0"
+
     //Paging Library
     implementation "androidx.paging:paging-runtime:2.1.2"
 }

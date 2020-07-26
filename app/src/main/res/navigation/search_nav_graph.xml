@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_nav_graph"
+    app:startDestination="@id/searchResultsFragment">
+
+    <fragment
+        android:id="@+id/searchResultsFragment"
+        android:name="com.belfoapps.recipeapp.views.fragments.SearchResultsFragment"
+        android:label="search_results_fragment"
+        tools:layout="@layout/search_results_fragment" >
+        <action
+            android:id="@+id/go_to_recipe_from_search"
+            app:destination="@id/recipeFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/recipeFragment2"
+        android:name="com.belfoapps.recipeapp.views.fragments.RecipeFragment"
+        android:label="RecipeFragment" />
+</navigation>

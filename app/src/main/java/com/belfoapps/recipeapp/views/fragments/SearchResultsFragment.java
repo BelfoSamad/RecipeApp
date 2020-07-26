@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,29 +16,30 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.belfoapps.recipeapp.R;
-import com.belfoapps.recipeapp.databinding.RecipesFragmentBinding;
+import com.belfoapps.recipeapp.databinding.SearchResultsFragmentBinding;
 import com.belfoapps.recipeapp.models.Recipe;
 import com.belfoapps.recipeapp.ui.adapters.RecipesAdapter;
-import com.belfoapps.recipeapp.viewmodels.RecipesViewModel;
+import com.belfoapps.recipeapp.viewmodels.SearchResultsViewModel;
 import com.belfoapps.recipeapp.views.MainListener;
 
 import java.util.ArrayList;
 
-public class RecipesFragment extends Fragment {
-    private static final String TAG = "RecipesFragment";
+public class SearchResultsFragment extends Fragment {
+    private static final String TAG = "SearchResultsFragment";
 
     /**
      * ************************************* Declarations ******************************************
      */
-    private RecipesViewModel mViewModel;
-    private RecipesFragmentBinding mBinding;
+    private SearchResultsViewModel mViewModel;
+    private SearchResultsFragmentBinding mBinding;
     private MainListener listener;
+    private String query;
 
     /**
      * ************************************** Constructor ******************************************
      */
-    public static RecipesFragment newInstance() {
-        return new RecipesFragment();
+    public static SearchResultsFragment newInstance() {
+        return new SearchResultsFragment();
     }
 
     /**
@@ -49,7 +51,7 @@ public class RecipesFragment extends Fragment {
         try {
             listener = (MainListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement RecipesFragmentEvents");
+            throw new ClassCastException(context.toString() + " must implement HomeFragmentEvents");
         }
     }
 
@@ -57,10 +59,8 @@ public class RecipesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (getArguments() != null) {
-            //Getting Mode and Category
-            String mode = getArguments().getString("mode");
-            String category = getArguments().getString("category");
+        if (getArguments() != null){
+            query = getArguments().getString("query");
         }
     }
 
@@ -68,21 +68,12 @@ public class RecipesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        mBinding = RecipesFragmentBinding.inflate(inflater, container, false);
-
-        //go back
-        mBinding.back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().onBackPressed();
-            }
-        });
+        mBinding = SearchResultsFragmentBinding.inflate(inflater, container, false);
 
         //Init Page Name
-        setPageTitle("Recipes");
+        setPageTitle("Search For: " + query);
 
-        //Init Recipes
-        //TODO: Get Recipes
+        //TODO: doMySearch(query);
         ArrayList<Recipe> recipes = new ArrayList<>();
         recipes.add(new Recipe("Recipe 1", "Category 1", R.drawable.recipe, 120, 2.4f));
         recipes.add(new Recipe("Recipe 2", "Category 1", R.drawable.recipe, 60, 4f));
@@ -91,8 +82,10 @@ public class RecipesFragment extends Fragment {
         recipes.add(new Recipe("Recipe 3", "Category 1", R.drawable.recipe, 160, 3.4f));
         recipes.add(new Recipe("Recipe 4", "Category 1", R.drawable.recipe, 140, 2f));
 
-        initRecyclerView(recipes);
+        initSearchResults(recipes);
 
+        //Init Search Filter
+        initFilters();
 
         return mBinding.getRoot();
     }
@@ -100,10 +93,14 @@ public class RecipesFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        mViewModel = ViewModelProviders.of(this).get(SearchResultsViewModel.class);
         // TODO: Use the ViewModel
-        mViewModel = ViewModelProviders.of(this).get(RecipesViewModel.class);
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mBinding = null;
     }
 
     /**
@@ -121,13 +118,35 @@ public class RecipesFragment extends Fragment {
         mBinding.pageTitle.setText(page_title);
     }
 
-    private void initRecyclerView(ArrayList<Recipe> recipes) {
+    private void initFilters() {
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
+                R.array.category, android.R.layout.simple_spinner_item);
+        //TODO: Custom Spinner
+
+        //Set Adapter
+        mBinding.filterCategory.setAdapter(adapter);
+
+        /*
+        mBinding.filterCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(SearchResultsActivity.this, "Filter Search", Toast.LENGTH_SHORT).show();
+                //TODO: Filter Search
+            }
+        });*/
+    }
+
+    private void initSearchResults(ArrayList<Recipe> recipes) {
         RecipesAdapter adapter = new RecipesAdapter(recipes, getContext(), "LIST");
         StaggeredGridLayoutManager manager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
-        mBinding.recipesRecyclerview.setLayoutManager(manager);
-        mBinding.recipesRecyclerview.setAdapter(adapter);
-        mBinding.recipesRecyclerview.addItemDecoration(new RecipesItemDecoration());
+        mBinding.resultsRecyclerview.setLayoutManager(manager);
+        mBinding.resultsRecyclerview.setAdapter(adapter);
+        mBinding.resultsRecyclerview.addItemDecoration(new SearchResultsFragment.RecipesItemDecoration());
+    }
+
+    private void filterSearchResults(ArrayList<Recipe> recipes) {
+
     }
 
     private static class RecipesItemDecoration extends RecyclerView.ItemDecoration {

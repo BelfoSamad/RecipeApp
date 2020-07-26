@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.models.Recipe;
+import com.belfoapps.recipeapp.views.MainListener;
+import com.belfoapps.recipeapp.views.fragments.ShoppingListRecipesFragment;
 
 import java.util.ArrayList;
 
@@ -62,8 +64,23 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
             holder.category.setText(recipes.get(position).getTitle());
             holder.time.setText(recipes.get(position).getTime() + " min");
             holder.rating.setText(recipes.get(position).getRating() + "/5");
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainListener listener =
+                            (MainListener) context;
+                    listener.goToRecipe("id");
+                }
+            });
         } else {
-            //TODO: Container Click Listener
+            holder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainListener listener =
+                            (MainListener) context;
+                    listener.goToIngredients("id");
+                }
+            });
         }
     }
 
@@ -94,6 +111,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.ViewHold
                 image = itemView.findViewById(R.id.recipe_image);
                 time = itemView.findViewById(R.id.recipe_time);
                 rating = itemView.findViewById(R.id.recipe_rating);
+                container = itemView.findViewById(R.id.recipe_container);
             } else {
                 title = itemView.findViewById(R.id.sl_recipe_title);
                 image = itemView.findViewById(R.id.sl_recipe_image);

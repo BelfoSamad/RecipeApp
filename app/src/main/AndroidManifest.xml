@@ -14,7 +14,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <!-- Activities -->
-        <activity android:name=".views.activities.SearchResultsActivity">
+        <activity android:name=".views.activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -29,7 +29,7 @@
             </intent-filter>
 
             <meta-data android:name="android.app.default_searchable"
-                android:value=".views.activities.SearchResultsActivity" />
+                android:value=".views.activities.SearchActivity" />
         </activity>
 
         <!-- Providers -->

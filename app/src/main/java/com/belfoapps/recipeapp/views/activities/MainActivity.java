@@ -3,27 +3,25 @@ package com.belfoapps.recipeapp.views.activities;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
+import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.databinding.ActivityMainBinding;
-import com.belfoapps.recipeapp.views.fragments.ShoppingListIngredientsFragment;
+import com.belfoapps.recipeapp.views.MainListener;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MainListener {
     private static final String TAG = "MainActivity";
-    private static final int CONTENT_VIEW_ID = 10101010;
 
     /**
      * ************************************* Declarations ******************************************
      */
-    ActivityMainBinding mBinding;
+    private ActivityMainBinding mBinding;
+    private NavController mNav;
 
     /**
      * *********************************** Life Cycle Methods **************************************
@@ -38,19 +36,11 @@ public class MainActivity extends AppCompatActivity {
             //TODO: Restore Data
         }
 
-        //TODO: Remove This
-        /*
-        FrameLayout frame = new FrameLayout(this);
-        frame.setId(CONTENT_VIEW_ID);
-        setContentView(frame, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        if (savedInstanceState == null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(CONTENT_VIEW_ID, ShoppingListIngredientsFragment.newInstance()).commit();
-        }*/
-
+        //Set DrawerMenu
         setDrawerMenuCallbacks();
+
+        //Init Navigation Component
+        mNav = Navigation.findNavController(this, R.id.main_nav_host_fragment);
     }
 
     /**
@@ -79,11 +69,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /*
         mBinding.openDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBinding.drawerMenu.openDrawer(GravityCompat.START);
             }
-        });
+        });*/
+    }
+
+    /**
+     * ******************************************* Events ******************************************
+     */
+    @Override
+    public void openDrawer() {
+
+    }
+
+    @Override
+    public void goToShoppingList() {
+        mNav.navigate(R.id.go_to_shopping_list);
+    }
+
+    @Override
+    public void goToRecipes(String mode, String category) {
+        Bundle bundle = new Bundle();
+        bundle.putString("mode", mode);
+        bundle.putString("category", category);
+        mNav.navigate(R.id.go_to_recipes, bundle);
+
+    }
+
+    @Override
+    public void goToRecipe(String recipe_id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("recipe_id", recipe_id);
+        mNav.navigate(R.id.go_to_recipe, bundle);
+
+    }
+
+    @Override
+    public void goToIngredients(String recipe_id) {
+        Bundle bundle = new Bundle();
+        bundle.putString("recipe_id", recipe_id);
+        mNav.navigate(R.id.go_to_ingredients, bundle);
     }
 }

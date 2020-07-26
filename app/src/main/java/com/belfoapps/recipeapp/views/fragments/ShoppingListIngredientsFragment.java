@@ -44,6 +44,8 @@ public class ShoppingListIngredientsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            //Get recipe id
+            String recipe_id = getArguments().getString("recipe_id");
         }
     }
 
@@ -52,6 +54,14 @@ public class ShoppingListIngredientsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mBinding = ShoppingListIngredientsFragmentBinding.inflate(inflater, container, false);
+
+        //go back
+        mBinding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         //TODO: Get Ingredients
         String[] ingredients = {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"};

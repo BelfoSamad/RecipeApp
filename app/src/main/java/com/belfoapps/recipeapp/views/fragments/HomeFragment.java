@@ -24,6 +24,7 @@ import com.belfoapps.recipeapp.ui.adapters.CategoriesAdapter;
 import com.belfoapps.recipeapp.ui.adapters.FeaturedAdapter;
 import com.belfoapps.recipeapp.ui.adapters.RecipesAdapter;
 import com.belfoapps.recipeapp.viewmodels.HomeViewModel;
+import com.belfoapps.recipeapp.views.MainListener;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,7 @@ public class HomeFragment extends Fragment {
      */
     private HomeViewModel mViewModel;
     private HomeFragmentBinding mBinding;
+    private MainListener listener;
 
     /**
      * ************************************** Constructor ******************************************
@@ -47,6 +49,16 @@ public class HomeFragment extends Fragment {
      * *********************************** Life Cycle Methods **************************************
      */
     @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            listener = (MainListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement HomeFragmentEvents");
+        }
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -56,6 +68,14 @@ public class HomeFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
 
         mBinding = HomeFragmentBinding.inflate(inflater, container, false);
+
+        //Go To ShoppingList
+        mBinding.chef.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.goToShoppingList();
+            }
+        });
 
         //Init Featured
         //TODO: Get Featured Recipes
@@ -154,6 +174,13 @@ public class HomeFragment extends Fragment {
         mBinding.savedRecyclerview.setLayoutManager(manager);
         mBinding.savedRecyclerview.setAdapter(adapter);
         mBinding.savedRecyclerview.addItemDecoration(new RecipesItemDecoration());
+
+        mBinding.savedAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.goToRecipes("Saved", null);
+            }
+        });
     }
 
     private void initRecentRecipesRecyclerView(ArrayList<Recipe> recipes) {
@@ -163,6 +190,13 @@ public class HomeFragment extends Fragment {
         mBinding.recentRecyclerview.setLayoutManager(manager);
         mBinding.recentRecyclerview.setAdapter(adapter);
         mBinding.recentRecyclerview.addItemDecoration(new RecipesItemDecoration());
+
+        mBinding.recentAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.goToRecipes("Recent", null);
+            }
+        });
     }
 
     /**

@@ -41,10 +41,28 @@ public class RecipeFragment extends Fragment {
      * *********************************** Life Cycle Methods **************************************
      */
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (getArguments() != null) {
+            //Getting Recipe Id
+            String recipe_id = getArguments().getString("recipe_id");
+        }
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
         mBinding = RecipeFragmentBinding.inflate(inflater, container, false);
+
+        //go back
+        mBinding.back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
 
         //TODO: Get Recipe
         //Bind Recipe

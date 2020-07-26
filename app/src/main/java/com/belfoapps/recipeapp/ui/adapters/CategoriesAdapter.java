@@ -8,10 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.belfoapps.recipeapp.R;
 import com.belfoapps.recipeapp.models.Category;
+import com.belfoapps.recipeapp.views.MainListener;
 
 import java.util.ArrayList;
 
@@ -43,10 +45,17 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CategoriesAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CategoriesAdapter.ViewHolder holder, final int position) {
         //TODO: Set Images By Glide/Picasso
         holder.image.setImageResource(categories.get(position).getImage());
         holder.title.setText(categories.get(position).getTitle());
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MainListener listener = (MainListener) context;
+                listener.goToRecipes("Category", categories.get(position).getTitle());
+            }
+        });
     }
 
     @Override
@@ -62,11 +71,13 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Vi
 
         private ImageView image;
         private TextView title;
+        private CardView container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.category_image);
             title = itemView.findViewById(R.id.category_title);
+            container = itemView.findViewById(R.id.category_container);
         }
     }
 }
