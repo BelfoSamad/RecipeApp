@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+        <item android:title="App Page">
+            <menu>
+                <item
+                    android:id="@+id/menu_saved"
+                    android:title="Saved Recipes"
+                    android:icon="@drawable/saved"/>
+                <item
+                    android:id="@+id/menu_recent"
+                    android:icon="@drawable/time"
+                    android:title="Recent Recipes" />
+                <item
+                    android:id="@+id/menu_shopping_list"
+                    android:icon="@drawable/shopping_list"
+                    android:title="ShoppingList" />
+            </menu>
+        </item>
+    </group>
+    <group>
+        <item android:title="Chef Social Media">
+            <menu>
+                <item
+                    android:id="@+id/youtube"
+                    android:title="Youtube"
+                    android:icon="@drawable/youtube"/>
+                <item
+                    android:id="@+id/instagram"
+                    android:title="Instagram"
+                    android:icon="@drawable/instagram"/>
+                <item
+                    android:id="@+id/facebook"
+                    android:title="Facebook"
+                    android:icon="@drawable/facebook"/>
+            </menu>
+        </item>
+    </group>
+    <group>
+        <item android:title="Others">
+            <menu>
+                <item
+                    android:id="@+id/privacy_policy"
+                    android:title="Privacy Policy"
+                    android:icon="@drawable/privacy_policy"/>
+                <item
+                    android:id="@+id/rate_us"
+                    android:title="Rate Us"
+                    android:icon="@drawable/rating"/>
+            </menu>
+        </item>
+    </group>
+</menu>

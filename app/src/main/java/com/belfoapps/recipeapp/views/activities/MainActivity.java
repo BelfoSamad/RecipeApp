@@ -2,17 +2,19 @@ package com.belfoapps.recipeapp.views.activities;
 
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.belfoapps.recipeapp.R;
-import com.belfoapps.recipeapp.views.fragments.HomeFragment;
-import com.belfoapps.recipeapp.views.fragments.RecipeFragment;
-import com.belfoapps.recipeapp.views.fragments.RecipesFragment;
+import com.belfoapps.recipeapp.databinding.ActivityMainBinding;
+import com.belfoapps.recipeapp.views.fragments.ShoppingListIngredientsFragment;
+import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * ************************************* Declarations ******************************************
      */
+    ActivityMainBinding mBinding;
 
     /**
      * *********************************** Life Cycle Methods **************************************
@@ -28,12 +31,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        mBinding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(mBinding.getRoot());
 
         if (savedInstanceState != null) {
             //TODO: Restore Data
         }
 
+        //TODO: Remove This
+        /*
         FrameLayout frame = new FrameLayout(this);
         frame.setId(CONTENT_VIEW_ID);
         setContentView(frame, new ViewGroup.LayoutParams(
@@ -41,9 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(CONTENT_VIEW_ID, RecipeFragment.newInstance()).commit();
-        }
+            ft.add(CONTENT_VIEW_ID, ShoppingListIngredientsFragment.newInstance()).commit();
+        }*/
 
+        setDrawerMenuCallbacks();
     }
 
     /**
@@ -58,4 +65,25 @@ public class MainActivity extends AppCompatActivity {
     /**
      * ****************************************** Methods ******************************************
      */
+    private void setDrawerMenuCallbacks() {
+        mBinding.navigation.setItemIconTintList(null);
+        mBinding.navigation.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+
+                switch (id) {
+                }
+
+                return true;
+            }
+        });
+
+        mBinding.openDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBinding.drawerMenu.openDrawer(GravityCompat.START);
+            }
+        });
+    }
 }

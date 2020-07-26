@@ -1,5 +1,6 @@
 package com.belfoapps.recipeapp.views.fragments;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,8 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.belfoapps.recipeapp.R;
+import com.belfoapps.recipeapp.databinding.ShoppingListIngredientsFragmentBinding;
+import com.belfoapps.recipeapp.ui.adapters.IngredientsAdapter;
 import com.belfoapps.recipeapp.viewmodels.ShoppingListViewModel;
 
 public class ShoppingListIngredientsFragment extends Fragment {
@@ -20,11 +24,13 @@ public class ShoppingListIngredientsFragment extends Fragment {
      * ************************************* Declarations ******************************************
      */
     private ShoppingListViewModel mViewModel;
+    private ShoppingListIngredientsFragmentBinding mBinding;
+    private IngredientsAdapter mAdapter;
 
     /**
      * ************************************** Constructor ******************************************
      */
-    public static ShoppingListIngredientsFragment newInstance(String param1, String param2) {
+    public static ShoppingListIngredientsFragment newInstance() {
         ShoppingListIngredientsFragment fragment = new ShoppingListIngredientsFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
@@ -44,8 +50,14 @@ public class ShoppingListIngredientsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.shopping_list_ingredients_fragment, container, false);
+
+        mBinding = ShoppingListIngredientsFragmentBinding.inflate(inflater, container, false);
+
+        //TODO: Get Ingredients
+        String[] ingredients = {"Ingredient 1", "Ingredient 2", "Ingredient 3", "Ingredient 4"};
+        initIngredientsRecyclerView(ingredients);
+
+        return mBinding.getRoot();
     }
 
     @Override
@@ -67,4 +79,21 @@ public class ShoppingListIngredientsFragment extends Fragment {
     /**
      * ****************************************** Methods ******************************************
      */
+    private void initIngredientsRecyclerView(String[] ingredients) {
+        mAdapter = new IngredientsAdapter(ingredients, getContext());
+        LinearLayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        mBinding.slIngredientsRecyclerview.setLayoutManager(manager);
+        mBinding.slIngredientsRecyclerview.setAdapter(mAdapter);
+        mBinding.slIngredientsRecyclerview.addItemDecoration(new MyItemDecoration());
+    }
+
+    private static class MyItemDecoration extends RecyclerView.ItemDecoration {
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, int itemPosition, @NonNull RecyclerView parent) {
+            super.getItemOffsets(outRect, itemPosition, parent);
+
+            outRect.bottom = 8;
+        }
+    }
 }
